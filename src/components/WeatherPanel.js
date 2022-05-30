@@ -1,43 +1,43 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import { GeolocationContext } from '../context/GeolocationContext';
 import useFetchCurrent from '../hooks/fetch/useFetchCurrent';
 import useFetchForecast from '../hooks/fetch/useFetchForecast';
 import weatherApi from '../services/weather';
 import Current from './Current';
 import Forecast from './Forecast';
 import Loading from './utilities/Loading';
+import styled from '@emotion/styled';
+
+const MessageError = styled.h4`
+  color: white;
+  align-self: center;
+  text-align: center;
+  font-weight: 200;
+  letter-spacing: 1.25px;
+  font-size: xxx-large;
+`;
 
 const WeatherPanel = () => {
-  const [city, setCity] = useState('')
-  const { dataGeo } = useContext(GeolocationContext)
-  const { id } = useParams();
-
-  useEffect(() => {
-    setCity(id || dataGeo.city)
-  }, [id, dataGeo.city])
-
+  const param = useParams();
+  
   const { 
     loading: loadingCurrent, 
     data: dataCurrent, 
     error: errorCurrent 
-  } = useFetchCurrent(weatherApi.getCurrentWeather, city);
+  } = useFetchCurrent(weatherApi.getCurrentWeather, param.id);
   
   const { 
     loading: loadingForecast, 
     data: dataForecast, 
     error: errorForecast 
-  } = useFetchForecast(weatherApi.getWeatherForecast, city);
+  } = useFetchForecast(weatherApi.getWeatherForecast, param.id);
 
   return (
     <>
-      {loadingCurrent && <Loading />}
+      {(loadingCurrent || loadingForecast) && <Loading />}
       {dataCurrent && <Current {...dataCurrent} />}
-
-      {loadingForecast && <Loading />}
       {dataForecast && <Forecast {...dataForecast} />}
-
-      {(errorCurrent || errorForecast) && <div role='error' >Something went wrong</div>}
+      {(errorCurrent || errorForecast) && <MessageError>No city data</MessageError>}
     </>
   );
 }

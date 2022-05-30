@@ -1,4 +1,4 @@
-const BASE_URL = 'http://ip-api.com/json';
+
 
 const getResource = async (resourceUrl) => {
   const response = await fetch(resourceUrl);
@@ -10,7 +10,7 @@ const getResource = async (resourceUrl) => {
 };
 
 const ipApi = {
-  getCurrentCoord: () => getResource(`${BASE_URL}/?fields=status,message,lat,lon,city`)
+  getCurrentCity: () => getResource('http://ip-api.com/json/')
 };
 
 export default ipApi;

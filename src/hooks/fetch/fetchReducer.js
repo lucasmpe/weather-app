@@ -3,7 +3,7 @@ const fetchReducer = (state, action) => {
 
   switch (type) {
     case 'LOAD':
-      return { ...state, loading: true, error: null };
+      return { ...state, loading: true, data: [], error: null };
     case 'SUCCESS':
       return { ...state, loading: false, data: payload, error: null };
     case 'FAILURE':

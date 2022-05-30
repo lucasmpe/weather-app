@@ -42,6 +42,7 @@ const Detail = styled.div`
   letter-spacing: 1.25px;
   display: flex;
   flex-direction: column;
+  font-size: 20px
 `;
 
 const Current = ({ city, humidity, speed, temp, time, weather }) => {

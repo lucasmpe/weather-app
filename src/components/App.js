@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   display: grid;
   grid-gap: 20px;
   grid-template-columns: 1fr;
-  grid-template-rows: auto minmax(300px, auto) auto auto;
+  grid-template-rows: 180px minmax(300px, auto) auto auto;
   grid-template-areas: "Nav" "Current" "Control" "Forecast";
 `;
 
@@ -26,7 +26,6 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Nav />}>
-                <Route index element={<WeatherPanel />} />
                 <Route path="city/:id" element={<WeatherPanel />} />
                 <Route path="*" element={<NoMatch />} />
               </Route>
