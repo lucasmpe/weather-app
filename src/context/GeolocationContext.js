@@ -6,7 +6,11 @@ export const GeolocationContext = createContext();
 
 export const GeolocationProvider = ({ children }) => {
 
-  const {loading: loadingGeo, data: dataGeo, error: errorGeo } = useFetchGeolocation(ipApi.getCurrentCity)
+  const {
+    loading: loadingGeo,
+    data: dataGeo, 
+    error: errorGeo 
+  } = useFetchGeolocation(ipApi.getCurrentCity);
  
   return <GeolocationContext.Provider value={{loadingGeo, dataGeo, errorGeo}}>{children}</GeolocationContext.Provider>;
 }

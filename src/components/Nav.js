@@ -37,15 +37,20 @@ const MessageError = styled.h4`
 
 const Nav = () => {
   const { loadingGeo, dataGeo, errorGeo } = useContext(GeolocationContext);
-  const { loadong: loadingCities, data: dataCities, error: errorCities } = useFetchCities(weatherApi.getCities, dataGeo.regionName)
 
+  const { 
+    loadong: loadingCities,
+    data: dataCities, 
+    error: errorCities 
+  } = useFetchCities(weatherApi.getCities, dataGeo ? dataGeo.regionName : 'London')
+  
   return (
     <>
       {(loadingGeo || loadingCities) && <Loading />}
       {dataCities && <>
         <WrapperNav>
-          {dataCities.map((city) =>
-            (<StyledLink key={city.lat} to={`city/${city.name}`}>{city.name}</StyledLink>)
+          {dataCities.map((city, index) =>
+            (<StyledLink key={`${city}-${index}`} to={`city/${city.name}`}>{city.name}</StyledLink>)
           )}
         </WrapperNav>
         <Outlet />
